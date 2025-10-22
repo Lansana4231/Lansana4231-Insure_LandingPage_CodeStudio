@@ -1,132 +1,459 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Insurance Company Landing Page</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Custom CSS for animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InsureSafe — Protect What Matters Most</title>
+  <meta name="description" content="InsureSafe provides reliable, affordable insurance for health, auto, and life." />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind (configured for dark mode and brand colors) -->
+  <script>
+    window.tailwind = {
+      config: {
+        darkMode: 'class',
+        theme: {
+          fontFamily: {
+            sans: [
+              'Inter',
+              'ui-sans-serif',
+              'system-ui',
+              'Segoe UI',
+              'Roboto',
+              'Helvetica Neue',
+              'Arial',
+              'Noto Sans',
+              'Apple Color Emoji',
+              'Segoe UI Emoji',
+              'Segoe UI Symbol',
+              'Noto Color Emoji'
+            ]
+          },
+          extend: {
+            colors: {
+              brand: {
+                50: '#eef2ff',
+                100: '#e0e7ff',
+                200: '#c7d2fe',
+                300: '#a5b4fc',
+                400: '#818cf8',
+                500: '#6366f1',
+                600: '#4f46e5',
+                700: '#4338ca',
+                800: '#3730a3',
+                900: '#312e81'
+              }
+            },
+            boxShadow: {
+              glow: '0 12px 36px rgba(99, 102, 241, 0.25)'
+            }
+          }
+        }
+      }
     }
-    .fade-in {
-      animation: fadeIn 1s ease-in-out;
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Reveal on scroll */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .will-fade { opacity: 0; transform: translateY(16px); }
+    .fade-in { animation: fadeInUp .7s ease-out forwards; }
+    @media (prefers-reduced-motion: reduce) {
+      .will-fade { opacity: 1; transform: none; }
+      .fade-in { animation: none; opacity: 1; transform: none; }
     }
   </style>
 </head>
-<body class="bg-gray-100 font-sans">
-  <!-- Header Section -->
-  <header class="bg-blue-900 text-white py-6">
-    <div class="container mx-auto flex justify-between items-center px-6">
-      <div class="text-2xl font-bold">InsureSafe</div>
-      <nav class="space-x-6">
-        <a href="#home" class="hover:text-blue-300">Home</a>
-        <a href="#about" class="hover:text-blue-300">About</a>
-        <a href="#services" class="hover:text-blue-300">Services</a>
-        <a href="#contact" class="hover:text-blue-300">Contact</a>
-      </nav>
+<body class="bg-gray-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased">
+  <!-- Header -->
+  <header id="site-header" class="sticky top-0 z-50 border-transparent bg-white/90 dark:bg-slate-900/80 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-slate-900/60 transition-colors">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between gap-4 py-4">
+        <a href="#home" class="flex items-center gap-3">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-indigo-500 text-white shadow-glow">IS</span>
+          <span class="text-lg sm:text-xl font-extrabold tracking-tight">InsureSafe</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="#about" class="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition">About</a>
+          <a href="#services" class="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition">Services</a>
+          <a href="#pricing" class="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition">Pricing</a>
+          <a href="#contact" class="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white transition">Contact</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <button id="theme-toggle" aria-label="Toggle dark mode" class="inline-flex items-center justify-center h-10 w-10 rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition">
+            <!-- Sun (shows in dark mode to indicate you can switch to light) -->
+            <svg class="hidden dark:block h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0-1.414-1.414M7.05 7.05 5.636 5.636"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+            <!-- Moon (shows in light mode to indicate you can switch to dark) -->
+            <svg class="block dark:hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79Z" />
+            </svg>
+          </button>
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-600 hover:bg-brand-500 text-white px-4 py-2.5 text-sm font-semibold shadow-glow transition">
+            Get a Quote
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section id="home" class="bg-blue-800 text-white py-20 fade-in">
-    <div class="container mx-auto text-center px-6">
-      <h1 class="text-5xl font-bold mb-4">Protect What Matters Most</h1>
-      <p class="text-xl mb-8">Get the best insurance plans tailored for you and your family.</p>
-      <a href="#contact" class="bg-white text-blue-800 px-8 py-3 rounded-full font-semibold hover:bg-blue-100 transition duration-300">Get a Quote</a>
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="absolute -z-10 inset-0 bg-gradient-to-br from-brand-600 via-indigo-600 to-purple-600"></div>
+    <div class="absolute -z-10 right-[-15%] top-[-10%] h-96 w-96 rounded-full bg-white/10 blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-6 pt-24 pb-20 text-white">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="will-fade">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
+            Protect <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/70">What Matters Most</span>
+          </h1>
+          <p class="mt-5 text-lg sm:text-xl text-white/90 max-w-xl">
+            Tailored insurance plans for your health, vehicle, and family — trusted for over 20 years.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <a href="#contact" class="inline-flex justify-center rounded-full bg-white text-brand-700 hover:text-brand-800 px-6 py-3 font-semibold shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/10 transition">Get a Quote</a>
+            <a href="#about" class="inline-flex justify-center rounded-full border border-white/50 hover:border-white/70 text-white px-6 py-3 font-semibold transition">Learn More</a>
+          </div>
+          <div class="mt-8 flex items-center gap-6 text-white/80 text-sm">
+            <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-400"></span><span>2M+ claims paid</span></div>
+            <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-cyan-300"></span><span>24/7 support</span></div>
+          </div>
+        </div>
+        <div class="will-fade">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1480&auto=format&fit=crop" alt="Family protected by insurance" class="w-full rounded-2xl shadow-2xl ring-1 ring-white/20" />
+            <div class="absolute -bottom-6 -left-6 h-24 w-24 rounded-2xl bg-gradient-to-tr from-white/30 to-transparent blur-xl"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-20 fade-in">
-    <div class="container mx-auto px-6">
-
-      <h2 class="text-3xl font-bold text-center mb-8">About Us</h2>
-      <div class="grid md:grid-cols-2 gap-8">
+  <!-- About -->
+  <section id="about" class="py-24 will-fade">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <img src="image-intro-mobile (2).jpg" alt="About Us" class="rounded-lg shadow-lg">
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">About Us</h2>
+          <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+            We are a trusted insurance provider with over 20 years of experience. Our mission is to offer reliable and affordable insurance solutions for individuals and businesses.
+          </p>
+          <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+            Our team of experts helps you find the perfect plan to protect your future.
+          </p>
+          <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
+            <li class="flex items-start gap-3"><span class="mt-1 h-5 w-5 rounded-full bg-emerald-500 text-white inline-flex items-center justify-center">✔</span><span>Licensed agents in all 50 states</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1 h-5 w-5 rounded-full bg-emerald-500 text-white inline-flex items-center justify-center">✔</span><span>Flexible, customizable plans</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1 h-5 w-5 rounded-full bg-emerald-500 text-white inline-flex items-center justify-center">✔</span><span>Fast claims and 24/7 support</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1 h-5 w-5 rounded-full bg-emerald-500 text-white inline-flex items-center justify-center">✔</span><span>Top-rated customer satisfaction</span></li>
+          </ul>
         </div>
-        <div class="flex flex-col justify-center">
-          <p class="text-gray-700 mb-4">We are a trusted insurance provider with over 20 years of experience. Our mission is to offer reliable and affordable insurance solutions for individuals and businesses.</p>
-          <p class="text-gray-700">Our team of experts is dedicated to helping you find the perfect plan to protect your future.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="services" class="bg-gray-50 py-20 fade-in">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center mb-8">Our Services</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-          <h3 class="text-xl font-bold mb-4">Health Insurance</h3>
-          <p class="text-gray-700">Comprehensive health plans to keep you and your family covered.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-          <h3 class="text-xl font-bold mb-4">Auto Insurance</h3>
-          <p class="text-gray-700">Protect your vehicle with our affordable auto insurance plans.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-          <h3 class="text-xl font-bold mb-4">Life Insurance</h3>
-          <p class="text-gray-700">Secure your family's future with our life insurance policies.</p>
+        <div>
+          <div class="grid grid-cols-2 gap-4">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1480&auto=format&fit=crop" alt="Team at work" class="w-full h-52 object-cover rounded-xl ring-1 ring-black/5 dark:ring-white/10" />
+            <img src="https://images.unsplash.com/photo-1566740933430-b5e72ee6b2b5?q=80&w=1480&auto=format&fit=crop" alt="Handshake" class="w-full h-52 object-cover rounded-xl ring-1 ring-black/5 dark:ring-white/10" />
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1480&auto=format&fit=crop" alt="Happy family" class="w-full h-52 object-cover rounded-xl ring-1 ring-black/5 dark:ring-white/10 col-span-2" />
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 fade-in">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl font-bold text-center mb-8">Contact Us</h2>
-      <form class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <div class="mb-6">
-          <label for="name" class="block text-gray-700 mb-2">Name</label>
-          <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+  <!-- Services -->
+  <section id="services" class="py-24 bg-gray-50 dark:bg-slate-950 will-fade">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center tracking-tight">Our Services</h2>
+      <p class="mt-3 text-center text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">Comprehensive coverage options to keep you and your family secure.</p>
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Health -->
+        <div class="group rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm hover:shadow-md transition">
+          <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white inline-flex items-center justify-center shadow-md">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 7.999A7 7 0 1 0 12 19v0M12 13h4m-2-2v4" /></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-semibold">Health Insurance</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Stay covered with flexible, affordable health plans tailored to your needs.</p>
         </div>
-        <div class="mb-6">
-          <label for="email" class="block text-gray-700 mb-2">Email</label>
-          <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        <!-- Auto -->
+        <div class="group rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm hover:shadow-md transition">
+          <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-600 text-white inline-flex items-center justify-center shadow-md">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13h18M5 13l2-5h10l2 5M7 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" /></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-semibold">Auto Insurance</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Protect your vehicle with comprehensive coverage and fast claims.</p>
         </div>
-        <div class="mb-6">
-          <label for="message" class="block text-gray-700 mb-2">Message</label>
-          <textarea id="message" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="5" required></textarea>
+        <!-- Life -->
+        <div class="group rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm hover:shadow-md transition">
+          <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-indigo-400 to-indigo-600 text-white inline-flex items-center justify-center shadow-md">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11Z" /></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-semibold">Life Insurance</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Secure your family's future with policies that grow with you.</p>
         </div>
-        <button type="submit" class="bg-blue-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition duration-300">Submit</button>
-      </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-24 will-fade">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center tracking-tight">What Our Customers Say</h2>
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <figure class="rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm">
+          <blockquote class="text-slate-700 dark:text-slate-300">“InsureSafe made switching plans effortless. I saved money and got better coverage.”</blockquote>
+          <figcaption class="mt-4 flex items-center gap-3">
+            <img class="h-10 w-10 rounded-full" src="https://i.pravatar.cc/80?img=12" alt="Avatar" />
+            <div>
+              <div class="font-semibold">Alex J.</div>
+              <div class="text-sm text-slate-500 dark:text-slate-400">Small Business Owner</div>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm">
+          <blockquote class="text-slate-700 dark:text-slate-300">“Fast claims and friendly support. They were there when we needed them.”</blockquote>
+          <figcaption class="mt-4 flex items-center gap-3">
+            <img class="h-10 w-10 rounded-full" src="https://i.pravatar.cc/80?img=7" alt="Avatar" />
+            <div>
+              <div class="font-semibold">Priya K.</div>
+              <div class="text-sm text-slate-500 dark:text-slate-400">Parent</div>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm">
+          <blockquote class="text-slate-700 dark:text-slate-300">“Clear options and honest advice. I feel confident about our future.”</blockquote>
+          <figcaption class="mt-4 flex items-center gap-3">
+            <img class="h-10 w-10 rounded-full" src="https://i.pravatar.cc/80?img=3" alt="Avatar" />
+            <div>
+              <div class="font-semibold">Miguel R.</div>
+              <div class="text-sm text-slate-500 dark:text-slate-400">Homeowner</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-24 bg-gray-50 dark:bg-slate-950 will-fade">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center tracking-tight">Simple, Transparent Pricing</h2>
+      <p class="mt-3 text-center text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">Pick a plan that fits your life. Upgrade or cancel anytime.</p>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <!-- Basic -->
+        <div class="relative rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm">
+          <div class="text-sm font-semibold text-slate-500 dark:text-slate-400">Basic</div>
+          <div class="mt-2 flex items-baseline gap-1">
+            <div class="text-3xl font-extrabold">$19</div><div class="text-slate-500 dark:text-slate-400">/mo</div>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li class="flex items-start gap-2">✔ Essential coverage</li>
+            <li class="flex items-start gap-2">✔ Standard support</li>
+            <li class="flex items-start gap-2">✔ Online claims</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex w-full justify-center rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2.5 font-semibold hover:opacity-90 transition">Choose Basic</a>
+        </div>
+        <!-- Standard -->
+        <div class="relative rounded-2xl bg-white dark:bg-slate-900 ring-2 ring-brand-500 p-6 shadow glow">
+          <span class="absolute -top-3 right-4 rounded-full bg-brand-600 text-white text-xs font-bold px-2 py-1">Most Popular</span>
+          <div class="text-sm font-semibold text-slate-500 dark:text-slate-400">Standard</div>
+          <div class="mt-2 flex items-baseline gap-1">
+            <div class="text-3xl font-extrabold">$39</div><div class="text-slate-500 dark:text-slate-400">/mo</div>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li class="flex items-start gap-2">✔ Everything in Basic</li>
+            <li class="flex items-start gap-2">✔ Lower deductibles</li>
+            <li class="flex items-start gap-2">✔ Phone support</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex w-full justify-center rounded-lg bg-brand-600 hover:bg-brand-500 text-white px-4 py-2.5 font-semibold transition">Choose Standard</a>
+        </div>
+        <!-- Premium -->
+        <div class="relative rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm">
+          <div class="text-sm font-semibold text-slate-500 dark:text-slate-400">Premium</div>
+          <div class="mt-2 flex items-baseline gap-1">
+            <div class="text-3xl font-extrabold">$79</div><div class="text-slate-500 dark:text-slate-400">/mo</div>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li class="flex items-start gap-2">✔ Everything in Standard</li>
+            <li class="flex items-start gap-2">✔ Highest coverage limits</li>
+            <li class="flex items-start gap-2">✔ Priority 24/7 concierge</li>
+          </ul>
+          <a href="#contact" class="mt-6 inline-flex w-full justify-center rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2.5 font-semibold hover:opacity-90 transition">Choose Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-24 will-fade">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Contact Us</h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300">Tell us what you need and our team will get back to you shortly.</p>
+          <dl class="mt-8 space-y-4 text-sm">
+            <div class="flex items-start gap-3"><span class="mt-1 h-6 w-6 rounded-md bg-brand-600 text-white inline-flex items-center justify-center">@</span><span>support@insuresafe.com</span></div>
+            <div class="flex items-start gap-3"><span class="mt-1 h-6 w-6 rounded-md bg-brand-600 text-white inline-flex items-center justify-center">☎</span><span>(555) 123-4567</span></div>
+            <div class="flex items-start gap-3"><span class="mt-1 h-6 w-6 rounded-md bg-brand-600 text-white inline-flex items-center justify-center">⌂</span><span>123 Market St, Suite 100, San Francisco, CA</span></div>
+          </dl>
+        </div>
+        <form id="contact-form" class="rounded-2xl bg-white dark:bg-slate-900 ring-1 ring-black/5 dark:ring-white/10 p-6 shadow-sm">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="name" class="block text-sm font-medium">Name</label>
+              <input id="name" name="name" type="text" required class="mt-1 w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-slate-950 px-3 py-2 outline-none focus:ring-2 focus:ring-brand-500" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium">Email</label>
+              <input id="email" name="email" type="email" required class="mt-1 w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-slate-950 px-3 py-2 outline-none focus:ring-2 focus:ring-brand-500" />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium">Phone</label>
+              <input id="phone" name="phone" type="tel" class="mt-1 w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-slate-950 px-3 py-2 outline-none focus:ring-2 focus:ring-brand-500" />
+            </div>
+            <div>
+              <label for="service" class="block text-sm font-medium">Interested In</label>
+              <select id="service" name="service" class="mt-1 w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-slate-950 px-3 py-2 outline-none focus:ring-2 focus:ring-brand-500">
+                <option>Health Insurance</option>
+                <option>Auto Insurance</option>
+                <option>Life Insurance</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="message" class="block text-sm font-medium">Message</label>
+              <textarea id="message" name="message" rows="5" required class="mt-1 w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-slate-950 px-3 py-2 outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+            </div>
+            <div class="sm:col-span-2 flex items-center gap-3">
+              <input id="consent" name="consent" type="checkbox" required class="h-4 w-4 rounded border-black/20 dark:border-white/20" />
+              <label for="consent" class="text-sm">I agree to the processing of my information.</label>
+            </div>
+          </div>
+          <div id="form-status" class="mt-4 hidden text-sm font-medium text-emerald-600">Thanks! We will reach out shortly.</div>
+          <button type="submit" class="mt-6 inline-flex w-full justify-center rounded-lg bg-brand-600 hover:bg-brand-500 text-white px-4 py-2.5 font-semibold transition">Submit</button>
+        </form>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-blue-900 text-white py-8">
-    <div class="container mx-auto text-center px-6">
-      <p>&copy; 2023 InsureSafe. All rights reserved.</p>
+  <footer class="bg-white dark:bg-slate-900 border-t border-black/5 dark:border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-indigo-500 text-white">IS</span>
+            <span class="font-extrabold">InsureSafe</span>
+          </div>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">Reliable coverage. Human support. Real peace of mind.</p>
+        </div>
+        <div>
+          <div class="text-sm font-semibold">Company</div>
+          <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li><a href="#about" class="hover:underline">About</a></li>
+            <li><a href="#testimonials" class="hover:underline">Stories</a></li>
+            <li><a href="#pricing" class="hover:underline">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-sm font-semibold">Product</div>
+          <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li><a href="#services" class="hover:underline">Services</a></li>
+            <li><a href="#contact" class="hover:underline">Contact</a></li>
+            <li><a href="#" class="hover:underline">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-sm font-semibold">Follow</div>
+          <div class="mt-3 flex items-center gap-3">
+            <a aria-label="Twitter" href="#" class="h-9 w-9 inline-flex items-center justify-center rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.75c-.77.34-1.6.56-2.46.66a4.1 4.1 0 0 0 1.8-2.26 8.2 8.2 0 0 1-2.6 1 4.1 4.1 0 0 0-7 3.73A11.7 11.7 0 0 1 3.15 4.7a4.1 4.1 0 0 0 1.27 5.48c-.63-.02-1.23-.2-1.76-.48v.05a4.1 4.1 0 0 0 3.3 4.02c-.53.15-1.08.17-1.62.06a4.1 4.1 0 0 0 3.83 2.85A8.24 8.24 0 0 1 2 19.55 11.65 11.65 0 0 0 8.29 21c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.36-.02-.54A8.35 8.35 0 0 0 22 5.75Z"/></svg>
+            </a>
+            <a aria-label="LinkedIn" href="#" class="h-9 w-9 inline-flex items-center justify-center rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C3.87 3.5 3 4.37 3 5.48c0 1.1.87 1.98 1.98 1.98 1.1 0 1.98-.87 1.98-1.98 0-1.1-.88-1.98-1.98-1.98ZM3.5 8.75h2.96V21H3.5V8.75Zm6.07 0H12.4v1.67h.05c.41-.78 1.43-1.6 2.94-1.6 3.14 0 3.72 2.07 3.72 4.77V21h-2.96v-5.44c0-1.3-.02-2.98-1.82-2.98-1.82 0-2.1 1.42-2.1 2.9V21H9.57V8.75Z"/></svg>
+            </a>
+            <a aria-label="GitHub" href="#" class="h-9 w-9 inline-flex items-center justify-center rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.48 0-.24-.01-.9-.01-1.77-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.58 2.36 1.12 2.93.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.15-4.56-5.14 0-1.14.39-2.07 1.03-2.8-.1-.26-.45-1.32.1-2.75 0 0 .85-.28 2.8 1.07.81-.23 1.67-.34 2.53-.34s1.72.11 2.53.34c1.95-1.35 2.8-1.07 2.8-1.07.55 1.43.2 2.49.1 2.75.64.73 1.03 1.66 1.03 2.8 0 3.99-2.34 4.88-4.57 5.13.36.32.68.95.68 1.93 0 1.39-.01 2.5-.01 2.84 0 .26.18.58.69.48A10.26 10.26 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" clip-rule="evenodd"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 flex items-center justify-between border-t border-black/5 dark:border-white/10 pt-6 text-sm text-slate-500 dark:text-slate-400">
+        <p>© <span id="year"></span> InsureSafe. All rights reserved.</p>
+        <a href="#home" class="hover:underline">Back to top ↑</a>
+      </div>
     </div>
   </footer>
 
-  <!-- JavaScript for Animations -->
+  <!-- Scripts -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('.fade-in');
-      const options = {
-        threshold: 0.1,
-      };
-
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, options);
-
-      sections.forEach(section => {
-        observer.observe(section);
-      });
+    // Theme handling
+    const root = document.documentElement;
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        root.classList.add('dark');
+        themeMeta.setAttribute('content', '#0f172a'); // slate-900-ish
+      } else {
+        root.classList.remove('dark');
+        themeMeta.setAttribute('content', '#ffffff');
+      }
+    }
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      applyTheme(storedTheme);
+    } else {
+      applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      const next = root.classList.contains('dark') ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem('theme', next);
     });
+
+    // Sticky header shadow on scroll
+    const header = document.getElementById('site-header');
+    const onScroll = () => {
+      if (window.scrollY > 4) {
+        header.classList.add('shadow-sm', 'border-b', 'border-black/5', 'dark:border-white/10');
+      } else {
+        header.classList.remove('shadow-sm', 'border-b', 'border-black/5', 'dark:border-white/10');
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.will-fade');
+    const io = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('will-fade');
+          entry.target.classList.add('fade-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Contact form status (demo)
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (status) status.classList.remove('hidden');
+      form.reset();
+    });
+
+    // Footer year
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
